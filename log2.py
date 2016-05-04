@@ -9,7 +9,7 @@ import re
 def spider_log(day):
     #返回规定时间的所有蜘蛛的日志（包括百度和谷歌360搜狗）
     spider = []
-    for line in open('text.log'):  #修改日志文件位置
+    for line in open('access.log'):  #修改日志文件位置
         line = line.strip()
         if re.findall(r'{day}/May/2016'.format(day=day),line):
             if re.findall(r'Baiduspider',line) or re.findall(r'Googlebot',line) or re.findall(r'360Spider',line) or re.findall(r'Sogou',line):
@@ -59,7 +59,6 @@ def download_log(spiders):
     re_download = '\s(\d+)\s"'
     download = 0
     for spider in spiders:
-        print re.findall(r'\s(\d+)\s"',spider)
         if  re.findall(re_download,spider):
              download = int(re.findall(re_download,spider)[0]) + download
     return download
@@ -77,6 +76,10 @@ def url_log(spiders):
                 url[lianjie] = url[lianjie] + 1
     return url
 
+print download_log(spider_log(3))
 
+#Baiduspider 百度蜘蛛
+#Googlebot  google蜘蛛
+#360Spider  360蜘蛛
+#Sogou    搜狗蜘蛛
 # print spider_log(3)[1]
-print url_log(spider_log(3))
